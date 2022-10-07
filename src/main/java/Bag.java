@@ -13,9 +13,10 @@ public abstract class Bag {
      *       - an int named capacity
      *       - an array of Strings named contents
      */
-
-
-
+    private String color;
+    private int numberOfContents;
+    private int capacity;
+    private String[] contents;
 
     /*
      * TODO: Create a constructor that takes two arguments:
@@ -26,9 +27,10 @@ public abstract class Bag {
      * be empty (e.g. numberOfContents is 0 and an empty String array for
      * its contents.)
      */
-
-
-
+    Bag(String color, int capacity) {
+        this.color = color;
+        this.capacity = capacity;
+    }
 
     /*
      * TODO: Create a variety of 'getter' functions.
@@ -37,18 +39,25 @@ public abstract class Bag {
      *           - getNumberOfContents
      *           - getCapacity
      */
+    public String getColor() {
+        return this.color;
+    }
 
+    public int getNumberOfContents() {
+        return this.numberOfContents;
+    }
 
-
+    public int getCapacity() {
+        return this.capacity;
+    }
 
     /*
      * TODO: Create a setter function called setColor which sets the
      *       color of this bag to the given color.
      */
-
-
-
-
+    public void setColor(String color) {
+        this.color = color;
+    }
 
     /*
      * TODO: Create a method called addItem that takes in a String
@@ -60,10 +69,20 @@ public abstract class Bag {
      *       This method should return true if the item was added
      *       and false otherwise.
      */
-
-
-
-
+    public void addItem(String item) {
+        if ((this.contents).length < this.capacity) {
+            // add item to bag: create new array, update this.contents to refer to new array
+            int original_size = this.contents.length;
+            String[] new_array = new String[original_size + 1];
+            for (int i = 0; i < original_size; i++) {
+                new_array[i] = this.contents[i];
+            }
+            new_array[new_array.length - 1] = item;
+            this.contents = new_array;
+            // increase this.numberOfContents
+            this.numberOfContents++;
+        }
+    }
 
     /**
      * TODO: Create a method called popItem that returns a String.
@@ -75,6 +94,21 @@ public abstract class Bag {
      *
      * @return
      */
+    public String popItem() {
+        int original_size = this.contents.length;
+        String item = this.contents[original_size - 1];
+        // remove item from bag
+        String[] new_array = new String[original_size - 1];
+        for (int i = 0; i < original_size - 1; i++) {
+            new_array[i] = this.contents[i];
+        }
+        // update to new bag
+        this.contents = new_array;
+        // decrease this.numberOfContents
+        this.numberOfContents--;
+        // return item
+        return item;
+    }
 
 
 
@@ -87,7 +121,7 @@ public abstract class Bag {
      */
     public void increaseCapacity(int n) {
         // TODO: Implement this method.
-
+        this.capacity = this.capacity + n;
     }
 
     /**
